@@ -36,16 +36,14 @@ $(() => {
         element.price +
         "</td><td>" +
         element.quan +
-        '</td><td><a href="#" id="edit">Edit</a> <a href="#" onclick="deleteItem(\'' +
+        '</td><td><a href="#" onclick="editItem(\'' +
+        element.sku +
+        '\')">Edit</a> <a href="#" onclick="deleteItem(\'' +
         element.sku +
         "')\">Delete</a></td></tr>";
     });
     table += "</table>";
     $("#product_list").html(table);
-    $("#del").on("click", () => {
-      console.log("in dele");
-      $("#r").hide();
-    });
   };
 });
 function deleteItem(val) {
@@ -55,4 +53,33 @@ function deleteItem(val) {
     }
   }
   display();
+}
+function editItem(val) {
+  let sku, name, price, quan, new_val;
+  var i;
+  var k;
+  $("#update_product").show();
+  $("#add_product").hide();
+  $("#product_sku").val(val);
+  $("#product_name").val("");
+  $("#product_price").val("");
+  $("#product_quantity").val("");
+  $("#update_product").click(() => {
+    for (k = 0; k < products.length; k++) {
+      sku = $("#product_sku").val();
+      name = $("#product_name").val();
+      price = $("#product_price").val();
+      quan = $("#product_quantity").val();
+      if (products[k].sku == val) {
+        products[k].name = name;
+        products[k].sku = sku;
+        products[k].price = price;
+        products[k].quan = quan;
+        console.log(products);
+        display();
+        $("#update_product").hide();
+        $("#add_product").show();
+      }
+    }
+  });
 }
