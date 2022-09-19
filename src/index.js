@@ -1,5 +1,6 @@
-let products = [];
+let products = [];  //Array to contain all the details of the products
 $(() => {
+  // Function to add the details of the product
   $("#add_product").click(() => {
     let sku = $("#product_sku").val();
     let name = $("#product_name").val();
@@ -23,6 +24,8 @@ $(() => {
     $(".success").hide();
     $(".error").hide();
   });
+
+  // Function to display the results 
   display = () => {
     let table =
       "<table><tr><th>SKU</th><th>Name</th><th>Price</th><th>Quantity</th><th>Action</th></tr>";
@@ -46,6 +49,8 @@ $(() => {
     $("#product_list").html(table);
   };
 });
+
+//deleteing item on the basis of SKU as SKU will be unique for all products
 function deleteItem(val) {
   for (let i = 0; i < products.length; i++) {
     if (products[i].sku == val) {
@@ -54,6 +59,8 @@ function deleteItem(val) {
   }
   display();
 }
+
+//function to edit the product in the list
 function editItem(val) {
   let sku, name, price, quan, new_val;
   var i;
