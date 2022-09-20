@@ -1,4 +1,4 @@
-let products = [];  //Array to contain all the details of the products
+let products = []; //Array to contain all the details of the products
 $(() => {
   // Function to add the details of the product
   $("#add_product").click(() => {
@@ -7,8 +7,38 @@ $(() => {
     let price = $("#product_price").val();
     let quan = $("#product_quantity").val();
     if (sku == "" || name == "" || price == "" || quan == "") {
-      $(".error").toggle();
+      if (sku == "") {
+        $(".success").hide();
+        $(".error")
+          .html("SKU field is empty.<a href='#' class='close'>X</a>")
+          .show();
+      }
+      if (name == "") {
+        $(".success").hide();
+        $(".error")
+          .html("Name field is empty.<a href='#' class='close'>X</a>")
+          .show();
+      }
+      if (price == "") {
+        $(".success").hide();
+        $(".error")
+          .html("Price field is empty.<a href='#' class='close'>X</a>")
+          .show();
+      }
+      if (quan == "") {
+        $(".success").hide();
+        $(".error")
+          .html("Quantity field is empty.<a href='#' class='close'>X</a>")
+          .show();
+      }
+      if (name == "" && price == "" && sku == "" && quan == "") {
+        $(".success").hide();
+        $(".error")
+          .html("All fields are empty.<a href='#' class='close'>X</a>")
+          .show();
+      }
     } else {
+      $(".error").hide();
       $(".success").show();
       var obj = {
         sku: sku,
@@ -22,10 +52,13 @@ $(() => {
   });
   $(".close").click(() => {
     $(".success").hide();
+    // $(".error").hide();
+  });
+  $(".error").click(() => {
     $(".error").hide();
   });
 
-  // Function to display the results 
+  // Function to display the results
   display = () => {
     let table =
       "<table><tr><th>SKU</th><th>Name</th><th>Price</th><th>Quantity</th><th>Action</th></tr>";
@@ -77,15 +110,49 @@ function editItem(val) {
       name = $("#product_name").val();
       price = $("#product_price").val();
       quan = $("#product_quantity").val();
-      if (products[k].sku == val) {
-        products[k].name = name;
-        products[k].sku = sku;
-        products[k].price = price;
-        products[k].quan = quan;
-        console.log(products);
-        display();
-        $("#update_product").hide();
-        $("#add_product").show();
+      if (sku == "" || name == "" || price == "" || quan == "") {
+        if (sku == "") {
+          $(".success").hide();
+          $(".error")
+            .html("SKU field is empty.<a href='#' class='close'>X</a>")
+            .show();
+        }
+        if (name == "") {
+          $(".success").hide();
+          $(".error")
+            .html("Name field is empty.<a href='#' class='close'>X</a>")
+            .show();
+        }
+        if (price == "") {
+          $(".success").hide();
+          $(".error")
+            .html("Price field is empty.<a href='#' class='close'>X</a>")
+            .show();
+        }
+        if (quan == "") {
+          $(".success").hide();
+          $(".error")
+            .html("Quantity field is empty.<a href='#' class='close'>X</a>")
+            .show();
+        }
+        if (name == "" && price == "" && sku == "" && quan == "") {
+          $(".success").hide();
+          $(".error")
+            .html("All fields are empty.<a href='#' class='close'>X</a>")
+            .show();
+        }
+      } else {
+        $(".error").hide();
+        if (products[k].sku == val) {
+          products[k].name = name;
+          products[k].sku = sku;
+          products[k].price = price;
+          products[k].quan = quan;
+          $(".success").show();
+          display();
+          $("#update_product").hide();
+          $("#add_product").show();
+        }
       }
     }
   });
